@@ -1,0 +1,38 @@
+{
+    "name": "cypresslab/tree-bundle",
+    "description": "A bundle to handle tree structures",
+    "version": "0.0.1",
+    "keywords": ["tree, symfony, bundle"],
+    "type": "symfony-bundle",
+    "license": "GPL3",
+    "authors": [
+        {
+            "name": "Matteo Giachino",
+            "email": "naderman@naderman.de",
+            "homepage": "http://www.naderman.de",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Cypress\\TreeBundle": ""
+        }
+    },
+    "require": {
+        "vakata/jstree": "1.0.0"
+    },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "vakata/jstree",
+                "version": "1.0.0",
+                "dist": {
+                    "url": "https://github.com/vakata/jstree/zipball/v.1.0",
+                    "type": "zip"
+                }
+            }
+        }
+    ],
+    "target-dir": "Cypress/TreeBundle"
+}

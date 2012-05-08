@@ -17,4 +17,11 @@
         </service>
     </services>
     -->
+
+    <services>
+        <service id="cypress_tree.twig.extension" class="Cypress\TreeBundle\Twig\TreeBundleExtension">
+            <tag name="twig.extension" />
+            <argument type="service" id="twig" />
+        </service>
+    </services>
 </container>

@@ -1,0 +1,10 @@
+<li class="jstree-open">
+    <a href="#">{{ node }}</a>
+    {% if node.getChildren|length > 0 %}
+    <ul>
+        {% for child in node.getChildren %}
+            {% include "CypressTreeBundle::tree_branch.html.twig" with { 'node': child } %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+</li>
