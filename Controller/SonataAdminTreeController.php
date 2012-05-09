@@ -15,7 +15,7 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 /**
  * Controller per NestedSet
  */
-class NestedSetController extends CRUDController
+class SonataAdminTreeController extends CRUDController
 {
     /**
      * Action per la lista
@@ -38,9 +38,7 @@ class NestedSetController extends CRUDController
 
         return $this->render($this->admin->getListTemplate(), array(
             'action'     => 'list',
-            'form'       => $formView,
             'roots'      => $roots,
-            'repository' => $this->getTreeRepository()
         ));
     }
 
@@ -51,6 +49,6 @@ class NestedSetController extends CRUDController
      */
     public function getTreeRepository()
     {
-        return $this->get('doctrine')->getEntityManager()->getRepository($this->admin->getClass());
+        return $this->get('doctrine.orm.entity_manager')->getRepository($this->admin->getClass());
     }
 }

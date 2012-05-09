@@ -1,9 +1,10 @@
-<li class="jstree-open">
+{% set rel = rel is defined ? rel : 'child' %}
+<li class="jstree-open" rel="{{ rel }}">
     <a href="#">{{ node }}</a>
     {% if node.getChildren|length > 0 %}
     <ul>
         {% for child in node.getChildren %}
-            {% include "CypressTreeBundle::tree_branch.html.twig" with { 'node': child } %}
+            {% include "CypressTreeBundle::tree_branch.html.twig" with { 'node': child, 'rel': 'child' } %}
         {% endfor %}
     </ul>
     {% endif %}
