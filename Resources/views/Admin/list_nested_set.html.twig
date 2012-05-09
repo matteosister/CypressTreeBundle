@@ -1,0 +1,21 @@
+{% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ cypress_tree_javascripts('assetic') }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ cypress_tree_stylesheets('assetic') }}
+{% endblock %}
+
+{% block list_table %}
+    {% if admin.datagrid.results|length > 0 %}
+        {% for root in roots %}
+            {{ cypress_tree(root) }}
+        {% endfor %}
+    {% else %}
+        Non ci sono risultuati!
+    {% endif %}
+{% endblock %}

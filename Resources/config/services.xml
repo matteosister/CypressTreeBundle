@@ -4,24 +4,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
-    <parameters>
-        <parameter key="cypress_tree.example.class">Cypress\TreeBundle\Example</parameter>
-    </parameters>
-
-    <services>
-        <service id="cypress_tree.example" class="%cypress_tree.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
-        </service>
-    </services>
-    -->
-
     <services>
         <service id="cypress_tree.twig.extension" class="Cypress\TreeBundle\Twig\TreeBundleExtension">
             <tag name="twig.extension" />
             <argument type="service" id="twig" />
+            <call method="setDefaultTheme">
+                <argument>%cypress_tree.theme%</argument>
+            </call>
         </service>
     </services>
 </container>
