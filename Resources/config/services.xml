@@ -5,9 +5,15 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+        <service id="cypress_tree.router" class="Cypress\TreeBundle\Router\TreeRouter" public="false">
+            <argument type="service" id="router" />
+        </service>
+
         <service id="cypress_tree.twig.extension" class="Cypress\TreeBundle\Twig\TreeBundleExtension">
             <tag name="twig.extension" />
             <argument type="service" id="twig" />
+            <argument type="service" id="cypress_tree.router" />
+            <argument>%cypress_tree.assets_manager%</argument>
             <call method="setDefaultTheme">
                 <argument>%cypress_tree.theme%</argument>
             </call>

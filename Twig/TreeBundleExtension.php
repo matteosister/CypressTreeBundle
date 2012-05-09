@@ -22,18 +22,30 @@ class TreeBundleExtension extends \Twig_Extension
     protected $environment;
 
     /**
+     * @var \Cypress\TreeBundle\Router\TreeRouter
+     */
+    protected $router;
+
+    /**
      * @var string
      */
     protected $defaultTheme;
+
+    /**
+     * @var string
+     */
+    protected $assetsManager;
 
     /**
      * Class constructor
      *
      * @param \Twig_Environment $environment twig environment
      */
-    public function __construct(\Twig_Environment $environment)
+    public function __construct(\Twig_Environment $environment, $router, $assetsManager)
     {
         $this->environment = $environment;
+        $this->router = $router;
+        $this->assetsManager = $assetsManager;
     }
 
     /**
@@ -46,7 +58,8 @@ class TreeBundleExtension extends \Twig_Extension
         return array(
             'cypress_tree'             => new \Twig_Function_Method($this, 'tree', array('is_safe' => array('html'))),
             'cypress_tree_javascripts' => new \Twig_Function_Method($this, 'javascripts', array('is_safe' => array('html'))),
-            'cypress_tree_stylesheets' => new \Twig_Function_Method($this, 'stylesheets', array('is_safe' => array('html')))
+            'cypress_tree_stylesheets' => new \Twig_Function_Method($this, 'stylesheets', array('is_safe' => array('html'))),
+            'cypress_tree_node_route'  => new \Twig_Function_Method($this, 'route', array('is_safe' => array('html'))),
         );
     }
 
@@ -83,14 +96,11 @@ class TreeBundleExtension extends \Twig_Extension
      *
      * @return string
      */
-    public function javascripts($type = 'plain', $theme = null)
+    public function javascripts()
     {
-        if (null === $theme) {
-            $theme = $this->defaultTheme;
-        }
-        $template = $this->environment->loadTemplate(sprintf('CypressTreeBundle::js/tree_javascripts_%s.html.twig', $type));
+        $template = $this->environment->loadTemplate(sprintf('CypressTreeBundle::js/tree_javascripts_%s.html.twig', $this->assetsManager));
         return $template->render(array(
-            'theme' => $theme
+            'theme' => $this->defaultTheme
         ));
     }
 
@@ -105,6 +115,11 @@ class TreeBundleExtension extends \Twig_Extension
     {
         $template = $this->environment->loadTemplate(sprintf('CypressTreeBundle::css/tree_stylesheets_%s.html.twig', $type));
         return $template->render(array());
+    }
+
+    public function route($obj)
+    {
+        return $this->router->generateRoute($obj);
     }
 
     /**

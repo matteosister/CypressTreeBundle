@@ -22,7 +22,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('theme')->defaultValue('default')
+                ->scalarNode('theme')->defaultValue('default')->end()
+                ->scalarNode('assets_manager')->defaultValue('plain')->end()
             ->end();
 
         return $treeBuilder;
