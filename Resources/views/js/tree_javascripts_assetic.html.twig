@@ -2,14 +2,4 @@
     "@CypressTreeBundle/Resources/public/jstree/jquery.jstree.js" %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
-<script>
-    $(document).ready(function() {
-        $('.cypress_tree').jstree({
-            "themes": {
-                "theme": "{{ theme }}",
-                "url": "/bundles/cypresstree/jstree/themes/{{ theme }}/style.css"
-            },
-            "plugins" : [ "html_data", "themes" ]
-        });
-    });
-</script>
+{% include "CypressTreeBundle::js/tree_javascript_custom.html.twig" %}

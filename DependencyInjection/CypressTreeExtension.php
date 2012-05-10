@@ -22,8 +22,7 @@ class CypressTreeExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('cypress_tree.theme', $config['theme']);
-        $container->setParameter('cypress_tree.assets_manager', $config['assets_manager']);
+        $container->setParameter('cypress_tree.configs', $config);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');

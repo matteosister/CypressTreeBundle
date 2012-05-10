@@ -1,6 +1,6 @@
 {% set rel = rel is defined ? rel : 'child' %}
 <li class="jstree-open" rel="{{ rel }}">
-    <a href="{{ cypress_tree_node_route(node) }}">{{ node }}</a>
+    {% include conf.labelTemplate %}
     {% if node.getChildren|length > 0 %}
     <ul>
         {% for child in node.getChildren %}

@@ -1,0 +1,11 @@
+<script>
+    $(document).ready(function() {
+        $('.cypress_tree').jstree({
+            "themes": {
+                "theme": "{{ conf.theme }}",
+                "url": "/bundles/cypresstree/jstree/themes/{{ conf.theme }}/style.css"
+            },
+            "plugins" : [ "html_data", "themes" ]
+        });
+    });
+</script>
