@@ -5,7 +5,61 @@
                 "theme": "{{ conf.theme }}",
                 "url": "/bundles/cypresstree/jstree/themes/{{ conf.theme }}/style.css"
             },
-            "plugins" : [ "html_data", "themes" ]
+            "types": {
+                "valid_children" : [ "root" ],
+                "types" : {
+                    "root": {
+                        "icon": {
+                            "image": "{{ asset(conf.root_icon) }}"
+                        },
+                        "valid_children" : [ "default" ]
+                    },
+                    "default": {
+                        "icon": {
+                            "image": "{{ asset(conf.node_icon) }}"
+                        },
+                        "valid_children": [ "default" ]
+                    }
+                }
+            },
+            "crrm": {
+                "move" : {
+                    "check_move" : function (m) {
+                        var p = this._get_parent(m.o);
+                        if (p.is_root) return false;
+                        if(!p) return false;
+                        p = p == -1 ? this.get_container() : p;
+                        if(p === m.np) return true;
+                        if(p[0] && m.np[0] && p[0] === m.np[0]) return true;
+                        return false;
+                    }
+                }
+            },
+            "dnd": {
+                "drop_target" : false,
+                "drag_target" : false
+            },
+            "plugins" : [ "html_data", "themes", "types", "crrm", "dnd" ]
+        });
+        tree.bind('move_node.jstree', function(e, data) {
+
+            /*var move = $.jstree._focused()._get_move();
+            var node = move.o;
+            var ref = move.r;
+            $.ajax({
+                url: Routing.generate('admin_entity_move_ajax', {
+                    'entity': className,
+                    'node': node.attr('id'),
+                    'ref': ref.attr('id'),
+                    'move': move.p
+                }),
+                method: 'GET',
+                success: function(data) {
+                },
+                error: function() {
+                    $.jstree.rollback(data.rlbk);
+                }
+            });*/
         });
     });
 </script>

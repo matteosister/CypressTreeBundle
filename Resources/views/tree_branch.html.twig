@@ -1,6 +1,10 @@
 {% set rel = rel is defined ? rel : 'child' %}
-<li class="jstree-open" rel="{{ rel }}">
-    {% include conf.labelTemplate %}
+<li class="jstree-open" rel="{{ rel }}" id="node-{{ node.id }}">
+    {% if 'root' == rel and not conf.editable_root %}
+        <a href="#">{{ node }}</a>
+    {% else %}
+        {% include conf.label_template %}
+    {% endif %}
     {% if node.getChildren|length > 0 %}
     <ul>
         {% for child in node.getChildren %}

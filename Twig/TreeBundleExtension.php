@@ -96,7 +96,7 @@ class TreeBundleExtension extends \Twig_Extension
     public function javascripts($treeName)
     {
         $treeConfiguration = $this->getTreeConfiguration($treeName);
-        $template = $this->environment->loadTemplate(sprintf('CypressTreeBundle::js/tree_javascripts_%s.html.twig', $treeConfiguration->getAssetsManager()));
+        $template = $this->environment->loadTemplate(sprintf('CypressTreeBundle::js/tree_javascripts_%s.html.twig', $treeConfiguration->assets_manager));
         return $template->render(array(
             'conf' => $treeConfiguration
         ));
@@ -112,7 +112,7 @@ class TreeBundleExtension extends \Twig_Extension
     public function stylesheets($treeName)
     {
         $template = $this->environment->loadTemplate(sprintf(
-            'CypressTreeBundle::css/tree_stylesheets_%s.html.twig', $this->getTreeConfiguration($treeName)->getAssetsManager()
+            'CypressTreeBundle::css/tree_stylesheets_%s.html.twig', $this->getTreeConfiguration($treeName)->assets_manager
         ));
         return $template->render(array());
     }

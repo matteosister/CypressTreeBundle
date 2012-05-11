@@ -20,19 +20,9 @@ class TreeConfiguration
     private $name;
 
     /**
-     * @var string
+     * @var array
      */
-    private $labelTemplate;
-
-    /**
-     * @var string
-     */
-    private $assetsManager;
-
-    /**
-     * @var string
-     */
-    private $theme;
+    private $configs;
 
     /**
      * Class constructor
@@ -43,19 +33,20 @@ class TreeConfiguration
     public function __construct($name, $configs)
     {
         $this->name = $name;
-        $this->labelTemplate = $configs['label_template'];
-        $this->assetsManager = $configs['assets_manager'];
-        $this->theme = $configs['theme'];
+        $this->configs = $configs;
     }
 
-    /**
-     * AssetsManager getter
-     *
-     * @return string
-     */
-    public function getAssetsManager()
+    public function __get($name)
     {
-        return $this->assetsManager;
+        if (!array_key_exists($name, $this->configs)) {
+            throw new \InvalidArgumentException(sprintf('TreeConfiguration do not have a %s configuration', $name));
+        }
+        return $this->configs[$name];
+    }
+
+    public function __call($method, $args)
+    {
+        return $this->$method;
     }
 
     /**
@@ -66,25 +57,5 @@ class TreeConfiguration
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Theme getter
-     *
-     * @return string
-     */
-    public function getTheme()
-    {
-        return $this->theme;
-    }
-
-    /**
-     * LabelTemplate getter
-     *
-     * @return string
-     */
-    public function getLabelTemplate()
-    {
-        return $this->labelTemplate;
     }
 }

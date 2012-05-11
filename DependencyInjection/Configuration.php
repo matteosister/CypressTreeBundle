@@ -28,8 +28,11 @@ class Configuration implements ConfigurationInterface
                     ->prototype('array')
                     ->children()
                         ->scalarNode('label_template')->isRequired()->end()
+                        ->booleanNode('editable_root')->defaultValue(false)->end()
                         ->scalarNode('theme')->defaultValue('default')->end()
                         ->scalarNode('assets_manager')->defaultValue('assetic')->end()
+                        ->scalarNode('root_icon')->defaultValue('bundles/cypresstree/images/database.png')->end()
+                        ->scalarNode('node_icon')->defaultValue('bundles/cypresstree/images/folder.png')->end()
                     ->end()
             ->end();
 
