@@ -41,25 +41,27 @@
             },
             "plugins" : [ "html_data", "themes", "types", "crrm", "dnd" ]
         });
-        tree.bind('move_node.jstree', function(e, data) {
-
-            /*var move = $.jstree._focused()._get_move();
+        $('.cypress_tree').bind('move_node.jstree', function(e, data) {
+            console.log('move');
+            var move = $.jstree._focused()._get_move();
+            var moveAfter = 'after' == move.p ? '1' : '0';
             var node = move.o;
+            var nodeId = node.attr('id').replace('node-', '');
             var ref = move.r;
+            var refId = ref.attr('id').replace('node-', '');
             $.ajax({
-                url: Routing.generate('admin_entity_move_ajax', {
-                    'entity': className,
-                    'node': node.attr('id'),
-                    'ref': ref.attr('id'),
-                    'move': move.p
-                }),
+                context: this,
+                url: "{{ path('_cypress_tree_' ~ conf.name ~ '_ajax_move') }}?node=" + nodeId + "&ref=" + refId + "&move=" + moveAfter,
                 method: 'GET',
-                success: function(data) {
+                success: function(response) {
+                    if (response == 'ko') {
+                        $.jstree.rollback(data.rlbk);
+                    }
                 },
                 error: function() {
                     $.jstree.rollback(data.rlbk);
                 }
-            });*/
+            });
         });
     });
 </script>

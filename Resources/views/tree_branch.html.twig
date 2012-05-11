@@ -1,5 +1,5 @@
-{% set rel = rel is defined ? rel : 'child' %}
-<li class="jstree-open" rel="{{ rel }}" id="node-{{ node.id }}">
+{% set rel = rel is defined ? rel : 'default' %}
+<li class="jstree-open{{ node.children|length == 0 ? ' jstree-leaf' : '' }}" rel="{{ rel }}" id="node-{{ node.id }}">
     {% if 'root' == rel and not conf.editable_root %}
         <a href="#">{{ node }}</a>
     {% else %}
@@ -7,8 +7,8 @@
     {% endif %}
     {% if node.getChildren|length > 0 %}
     <ul>
-        {% for child in node.getChildren %}
-            {% include "CypressTreeBundle::tree_branch.html.twig" with { 'node': child, 'rel': 'child' } %}
+        {% for child in node.children %}
+            {% include "CypressTreeBundle::tree_branch.html.twig" with { 'node': child, 'rel': 'default' } %}
         {% endfor %}
     </ul>
     {% endif %}

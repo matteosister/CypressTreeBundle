@@ -14,12 +14,17 @@ use Cypress\TreeBundle\Tree\TreeConfiguration;
 /**
  * A collection of trees
  */
-class TreeCollection
+class TreeCollection implements \ArrayAccess, \Iterator, \Countable
 {
     /**
      * @var array an array of Tree instances
      */
     private $trees;
+
+    /**
+     * @var int useful for ArrayAccess
+     */
+    private $position;
 
     /**
      * Class constructor
@@ -28,6 +33,7 @@ class TreeCollection
      */
     public function __construct($config)
     {
+        $this->position = 0;
         foreach ($config['trees'] as $name => $treeConfig) {
             $this->buildTree($name, $treeConfig);
         }
@@ -58,4 +64,114 @@ class TreeCollection
         });
         return $filtered[0];
     }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function current()
+    {
+        return $this->trees[$this->position];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function next()
+    {
+        $this->position++;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return int
+     */
+    public function key()
+    {
+        return $this->position;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return bool
+     */
+    public function valid()
+    {
+        return isset($this->trees[$this->position]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function rewind()
+    {
+        $this->position = 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param mixed $offset An offset to check for.
+     *
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->trees[$offset]);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param mixed $offset The offset to retrieve.
+     *
+     * @return mixed Can return all value types.
+     */
+    public function offsetGet($offset)
+    {
+        return isset($this->trees[$offset]) ? $this->trees[$offset] : null;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param mixed $offset The offset to assign the value to.
+     * @param mixed $value The value to set.
+     *
+     * @return void
+     */
+    public function offsetSet($offset, $value)
+    {
+        if (is_null($offset)) {
+            $this->trees[] = $value;
+        } else {
+            $this->trees[$offset] = $value;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param mixed $offset The offset to unset.
+     *
+     * @return void
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->trees[$offset]);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->trees);
+    }
+
+
 }

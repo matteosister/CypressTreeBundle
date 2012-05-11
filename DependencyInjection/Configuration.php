@@ -27,6 +27,7 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('name')
                     ->prototype('array')
                     ->children()
+                        ->scalarNode('controller')->isRequired()->end()
                         ->scalarNode('label_template')->isRequired()->end()
                         ->booleanNode('editable_root')->defaultValue(false)->end()
                         ->scalarNode('theme')->defaultValue('default')->end()
