@@ -14,7 +14,7 @@ use Cypress\TreeBundle\Interfaces\TreeInterface;
 /**
  * TreeControllerInterface
  */
-interface TreeControllerInterface
+interface TreeControllerSortableInterface
 {
     /**
      * Controller action to move a tree node
@@ -22,8 +22,8 @@ interface TreeControllerInterface
      * @abstract
      *
      * @return \Symfony\Component\HttpFoundation\Response must return a Response object with:
-     *     "ok": everything works
+     *     "ok": everything worked
      *     "ko": there was a problem
      */
-    function moveNodeAction();
+    function sortNodeAction();
 }

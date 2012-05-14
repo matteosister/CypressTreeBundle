@@ -36,6 +36,14 @@ class TreeConfiguration
         $this->configs = $configs;
     }
 
+    /**
+     * universal configuration property getter
+     *
+     * @param string $name property name
+     *
+     * @return string
+     * @throws \InvalidArgumentException
+     */
     public function __get($name)
     {
         if (!array_key_exists($name, $this->configs)) {
@@ -44,6 +52,14 @@ class TreeConfiguration
         return $this->configs[$name];
     }
 
+    /**
+     * universal method caller
+     *
+     * @param string $method method name
+     * @param array  $args   method arguments
+     *
+     * @return mixed
+     */
     public function __call($method, $args)
     {
         return $this->$method;
@@ -57,5 +73,16 @@ class TreeConfiguration
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * check if the controller implements the TreeControllerSortableInterface interface
+     *
+     * @return bool
+     */
+    public function isSortable()
+    {
+        $reflection = new \ReflectionClass($this->controller);
+        return in_array('Cypress\TreeBundle\Interfaces\TreeControllerSortableInterface', $reflection->getInterfaceNames());
     }
 }

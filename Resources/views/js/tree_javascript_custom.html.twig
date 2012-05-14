@@ -39,7 +39,15 @@
                 "drop_target" : false,
                 "drag_target" : false
             },
-            "plugins" : [ "html_data", "themes", "types", "crrm", "dnd" ]
+            "plugins" : [
+                "html_data",
+                "themes",
+                "types",
+                {% if conf.isSortable %}
+                "crrm",
+                "dnd"
+                {% endif %}
+            ]
         });
         $('.cypress_tree').bind('move_node.jstree', function(e, data) {
             console.log('move');

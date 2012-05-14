@@ -71,7 +71,8 @@ class TreeBundleExtension extends \Twig_Extension
     /**
      * renders a tree
      *
-     * @param \Cypress\TreeBundle\Interfaces\TreeInterface $node a TreeInterface instance
+     * @param string                                       $treeName the tree name
+     * @param \Cypress\TreeBundle\Interfaces\TreeInterface $node     a TreeInterface instance
      *
      * @return string
      */
@@ -88,8 +89,9 @@ class TreeBundleExtension extends \Twig_Extension
     /**
      * output javascripts for tree
      *
-     * @param string $type  the assets management type (plain or assetic)
-     * @param string $theme the jstree theme name
+     * @param string $treeName the tree name
+     *
+     * @internal param string $theme the jstree theme name
      *
      * @return string
      */
@@ -105,7 +107,7 @@ class TreeBundleExtension extends \Twig_Extension
     /**
      * output stylesheets for tree
      *
-     * @param string $type the assets management type (plain or assetic)
+     * @param string $treeName the tree name
      *
      * @return string
      */
