@@ -59,7 +59,7 @@
             var refId = ref.attr('id').replace('node-', '');
             $.ajax({
                 context: this,
-                url: "{{ path('_cypress_tree_' ~ conf.name ~ '_ajax_move') }}?node=" + nodeId + "&ref=" + refId + "&move=" + moveAfter,
+                url: "{{ path('_cypress_tree_' ~ conf.name ~ '_ajax_sort') }}?node=" + nodeId + "&ref=" + refId + "&move=" + moveAfter,
                 method: 'GET',
                 success: function(response) {
                     if (response == 'ko') {

@@ -62,6 +62,10 @@ class TreeCollection implements \ArrayAccess, \Iterator, \Countable
         $filtered = array_filter($this->trees, function(TreeConfiguration $tree) use ($name) {
             return $name == $tree->getName();
         });
+        if (0 === count($filtered)) {
+            throw new \InvalidArgumentException(sprintf('the tree %s do not exists in your configuration'));
+        }
+        sort($filtered);
         return $filtered[0];
     }
 

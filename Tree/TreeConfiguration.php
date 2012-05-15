@@ -79,10 +79,10 @@ class TreeConfiguration
      * check if the controller implements the TreeControllerSortableInterface interface
      *
      * @return bool
+     * @todo: pensare a un modo per gestire questo
      */
     public function isSortable()
     {
-        $reflection = new \ReflectionClass($this->controller);
-        return in_array('Cypress\TreeBundle\Interfaces\TreeControllerSortableInterface', $reflection->getInterfaceNames());
+        return true;
     }
 }

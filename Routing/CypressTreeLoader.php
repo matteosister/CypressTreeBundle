@@ -58,15 +58,12 @@ class CypressTreeLoader implements LoaderInterface
         }
         $routes = new RouteCollection();
         foreach ($this->trees as $treeConfiguration) {
-            $pattern = sprintf('/ajax/%s/move', $treeConfiguration->getName());
+            $pattern = sprintf('/ajax/%s/sort', $treeConfiguration->getName());
             $defaults = array(
-                '_controller' => sprintf('%s:%s', $treeConfiguration->controller, 'moveNode'),
-                /*'node'        => 0,
-                'ref'         => 0,
-                'move'        => 0*/
+                '_controller' => sprintf('%s:%s', $treeConfiguration->controller, 'sortNode')
             );
             $route = new Route($pattern, $defaults);
-            $routes->add(sprintf('_cypress_tree_%s_ajax_move', $treeConfiguration->getName()), $route);
+            $routes->add(sprintf('_cypress_tree_%s_ajax_sort', $treeConfiguration->getName()), $route);
         }
 
         return $routes;

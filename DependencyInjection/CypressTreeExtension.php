@@ -7,6 +7,8 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
+use Symfony\Component\DependencyInjection\Definition;
+
 /**
  * This is the class that loads and manages your bundle configuration
  *
@@ -23,6 +25,11 @@ class CypressTreeExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('cypress_tree.configs', $config);
+
+        /*foreach ($config['trees'] as $name => $tree) {
+            $definition = new Definition($tree['controller']);
+            $container->setDefinition(sprintf('cypress_tree.%s.controller', $name), $definition);
+        }*/
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
