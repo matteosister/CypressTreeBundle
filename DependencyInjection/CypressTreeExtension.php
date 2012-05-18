@@ -22,9 +22,23 @@ class CypressTreeExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $this->addDefaultTree($config);
         $container->setParameter('cypress_tree.configs', $config);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+    }
+
+    private function addDefaultTree(&$config)
+    {
+        $config['trees']['__default'] = array(
+            'label_template' => 'CypressTreeBundle::label.html.twig',
+            'controller' => 'CypressTreeBundle:Default',
+            'editable_root' => false,
+            'theme' => 'default',
+            'assets_manager' => 'assetic',
+            'root_icon' => 'bundles/cypresstree/images/database.png',
+            'node_icon' => 'bundles/cypresstree/images/folder.png'
+        );
     }
 }

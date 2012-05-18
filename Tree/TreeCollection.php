@@ -17,6 +17,11 @@ use Cypress\TreeBundle\Tree\TreeConfiguration;
 class TreeCollection implements \ArrayAccess, \Iterator, \Countable
 {
     /**
+     * @var Default Tree instance
+     */
+    private $defaultTree;
+
+    /**
      * @var array an array of Tree instances
      */
     private $trees;
