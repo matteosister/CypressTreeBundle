@@ -2,18 +2,14 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {{ cypress_tree_javascripts('assetic') }}
+    {{ cypress_tree_javascripts_default() }}
 {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    {{ cypress_tree_stylesheets('assetic') }}
-{% endblock %}
 
 {% block list_table %}
     {% if admin.datagrid.results|length > 0 %}
         {% for root in roots %}
-            {{ cypress_tree(root) }}
+            {{ cypress_tree_default(root) }}
         {% endfor %}
     {% else %}
         Non ci sono risultuati!
