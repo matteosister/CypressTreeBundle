@@ -28,11 +28,6 @@ class TreeBundleExtension extends \Twig_Extension
     protected $treeCollection;
 
     /**
-     * @var string
-     */
-    protected $assetsManager;
-
-    /**
      * Class constructor
      *
      * @param \Twig_Environment                       $environment    twig environment
