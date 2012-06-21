@@ -6,7 +6,7 @@ A Symfony2 bundle to manage those f***ing tree structures!
 Install
 -------
 
-add this to your **composer.json** file
+add this to the *require* section of your **composer.json** file
 
 ```javascript
 {
