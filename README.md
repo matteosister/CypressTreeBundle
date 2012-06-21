@@ -7,7 +7,7 @@ The Basics
 ----------
 
 You have a php class (an entity, a document, or anything else) and you want it to be a part of a tree structure.
-For this example let's consider a Doctrine ORM entity with the Tree extension enabled from the awesome [gedmo repository](https://github.com/l3pp4rd/DoctrineExtensions)
+For this example let's consider a Doctrine ORM entity with the Tree extension enabled from the awesome [gedmo repository](https://github.com/l3pp4rd/DoctrineExtensions). Here is a [full configuration tutorial](http://gediminasm.org/article/tree-nestedset-behavior-extension-for-doctrine-2)
 
 * Add the TreeInterface to the class
 
