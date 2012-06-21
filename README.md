@@ -3,6 +3,15 @@ CypressTreeBundle
 
 A Symfony2 bundle to manage those f***ing tree structures!
 
+Install
+-------
+
+add this to your **composer.json** file
+
+```javascript
+
+```
+
 The Basics
 ----------
 
@@ -104,7 +113,7 @@ class MenuItem implements TreeInterface {
 }
 ```
 
-**TreeInterface** define one method that you MUST define **getChildren()**
+**TreeInterface** define one method that you MUST define: **getChildren()**
 
 ```php
 <?php
