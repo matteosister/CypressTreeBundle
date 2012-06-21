@@ -9,7 +9,11 @@ Install
 add this to your **composer.json** file
 
 ```javascript
-
+{
+    "require": {
+        "cypresslab/tree-bundle": "dev-master"
+    }
+}
 ```
 
 The Basics
