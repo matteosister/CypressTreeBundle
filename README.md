@@ -1,6 +1,8 @@
 CypressTreeBundle
 =================
 
+**WORK IN PROGRESS!!! No tests, no hopes.**
+
 A Symfony2 bundle to manage those f***ing tree structures!
 
 Install
