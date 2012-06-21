@@ -10,7 +10,7 @@ You have a php class (an entity, a document, or anything else) and you want it t
 
 * Add the TreeInterface to the class
 
-``` php
+```php
 namespace Cypress\MyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
