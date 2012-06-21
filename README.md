@@ -104,5 +104,27 @@ class MenuItem implements TreeInterface {
 }
 ```
 
-**TreeInterface** define one method that you
+**TreeInterface** define one method that you MUST define **getChildren()**
+
+```php
+<?php
+namespace Cypress\TreeBundle\Interfaces;
+
+/**
+ * Interface for trees
+ */
+interface TreeInterface
+{
+    /**
+     * returns a in iteratable object of children
+     *
+     * @abstract
+     * @return mixed
+     */
+    function getChildren();
+}
+```
+
+We already have it in the class as a getter for the *children* property.
+You could use any class, as far as you implement TreeInterface, and define the *getChildren* method.
 
