@@ -147,7 +147,7 @@ class MenuItem implements TreeInterface {
 }
 ```
 
-**TreeInterface** define one method that you MUST define: **getChildren()**
+**TreeInterface** define one method that you MUST implement: **getChildren()**
 
 ```php
 <?php
