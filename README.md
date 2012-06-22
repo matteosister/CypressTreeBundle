@@ -46,8 +46,8 @@ class AppKernel extends Kernel
 }
 ```
 
-How to use
-----------
+Configuration
+-------------
 
 You have a php class (an entity, a document, or anything else) and you want it to be a part of a tree structure.
 For this example let's consider a Doctrine ORM entity with the Tree extension enabled from the awesome [gedmo repository](https://github.com/l3pp4rd/DoctrineExtensions). Here is a [full configuration tutorial](http://gediminasm.org/article/tree-nestedset-behavior-extension-for-doctrine-2)
@@ -200,6 +200,7 @@ The controller should implements the *TreeControllerSortableInterface* which req
 Here is an example with Doctrine orm entities
 
 ```php
+<?php
 public function sortNodeAction($node, $ref, $move)
 {
     try {
