@@ -245,7 +245,7 @@ Usage
 
 Now you are ready to display your trees on your twig templates.
 
-- add the FOSJsRouting js call for sorting the tree
+- add the FOSJsRouting js call for sorting the tree. Remember to add it on every page that display a tree.
 
 ```HTML+Django
 <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
@@ -255,13 +255,13 @@ Now you are ready to display your trees on your twig templates.
 - in the javascript section of your template call the function *cypress_tree_javascripts* with the name of the tree that you have defined in you config.yml file
 
 ```HTML+Django
-{{ cypress_tree_javascripts('admin_menu_item_orm') }}
+{{ cypress_tree_javascripts('my_tree') }}
 ```
 
 and in the body of your page call the cypress_tree() function, with the tree name as first argument, and the root node of your tree as the second.
 
 ```HTML+Django
-{{ cypress_tree('admin_menu_item_orm', root) }}
+{{ cypress_tree('my_tree', root) }}
 ```
 
 And you should see it!
