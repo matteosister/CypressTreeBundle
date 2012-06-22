@@ -23,7 +23,7 @@ class DefaultController extends Controller implements TreeControllerSortableInte
      *     "ok": everything worked
      *     "ko": there was a problem
      */
-    function sortNodeAction()
+    function sortNodeAction($node, $ref, $move)
     {
         return new Response('ko');
     }

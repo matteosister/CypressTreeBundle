@@ -50,16 +50,20 @@
             ]
         });
         $('.cypress_tree').bind('move_node.jstree', function(e, data) {
-            console.log('move');
             var move = $.jstree._focused()._get_move();
             var moveAfter = 'after' == move.p ? '1' : '0';
             var node = move.o;
             var nodeId = node.attr('id').replace('node-', '');
             var ref = move.r;
             var refId = ref.attr('id').replace('node-', '');
+            var callUrl = Routing.generate('_cypress_tree_{{ conf.name }}_ajax_sort', {
+                node: nodeId,
+                ref: refId,
+                move: moveAfter
+            });
             $.ajax({
                 context: this,
-                url: "{{ path('_cypress_tree_' ~ conf.name ~ '_ajax_sort') }}?node=" + nodeId + "&ref=" + refId + "&move=" + moveAfter,
+                url: callUrl,
                 method: 'GET',
                 success: function(response) {
                     if (response == 'ko') {

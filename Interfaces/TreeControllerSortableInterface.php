@@ -21,9 +21,13 @@ interface TreeControllerSortableInterface
      *
      * @abstract
      *
+     * @param int $node id of the node to move
+     * @param int $ref  id of the reference node
+     * @param int $move 1 to move after, 0 to move before the reference
+     *
      * @return \Symfony\Component\HttpFoundation\Response must return a Response object with:
      *     "ok": everything worked
      *     "ko": there was a problem
      */
-    function sortNodeAction();
+    function sortNodeAction($node, $ref, $move);
 }
