@@ -28,11 +28,6 @@ class TreeBundleExtension extends \Twig_Extension
     protected $treeCollection;
 
     /**
-     * @var string
-     */
-    protected $assetsManager;
-
-    /**
      * Class constructor
      *
      * @param \Twig_Environment                       $environment    twig environment
@@ -53,8 +48,10 @@ class TreeBundleExtension extends \Twig_Extension
     {
         return array(
             'cypress_tree'             => new \Twig_Function_Method($this, 'tree', array('is_safe' => array('html'))),
+            'cypress_tree_default'     => new \Twig_Function_Method($this, 'treeDefault', array('is_safe' => array('html'))),
             'cypress_tree_javascripts' => new \Twig_Function_Method($this, 'javascripts', array('is_safe' => array('html'))),
-            'cypress_tree_stylesheets' => new \Twig_Function_Method($this, 'stylesheets', array('is_safe' => array('html')))
+            'cypress_tree_javascripts_default' => new \Twig_Function_Method($this, 'javascriptsDefault', array('is_safe' => array('html'))),
+            //'cypress_tree_stylesheets' => new \Twig_Function_Method($this, 'stylesheets', array('is_safe' => array('html')))
         );
     }
 
@@ -87,6 +84,18 @@ class TreeBundleExtension extends \Twig_Extension
     }
 
     /**
+     * renders a default tree
+     *
+     * @param \Cypress\TreeBundle\Interfaces\TreeInterface $node a TreeInterface instance
+     *
+     * @return string
+     */
+    public function treeDefault($node)
+    {
+        return $this->tree('__default', $node);
+    }
+
+    /**
      * output javascripts for tree
      *
      * @param string $treeName the tree name
@@ -102,6 +111,18 @@ class TreeBundleExtension extends \Twig_Extension
         return $template->render(array(
             'conf' => $treeConfiguration
         ));
+    }
+
+    /**
+     * output javascripts for a default tree
+     *
+     * @internal param string $theme the jstree theme name
+     *
+     * @return string
+     */
+    public function javascriptsDefault()
+    {
+        return $this->javascripts('__default');
     }
 
     /**

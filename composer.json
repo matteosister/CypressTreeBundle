@@ -1,6 +1,6 @@
 {
     "name": "cypresslab/tree-bundle",
-    "description": "A bundle to handle tree structures",
+    "description": "A Symfony2 bundle to handle tree structures",
     "version": "0.0.1",
     "keywords": ["tree, symfony, bundle"],
     "type": "symfony-bundle",
@@ -8,8 +8,8 @@
     "authors": [
         {
             "name": "Matteo Giachino",
-            "email": "naderman@naderman.de",
-            "homepage": "http://www.naderman.de",
+            "email": "matteog@gmail.com",
+            "homepage": "https://github.com/matteosister/CypressTreeBundle/tree/develop",
             "role": "Developer"
         }
     ],

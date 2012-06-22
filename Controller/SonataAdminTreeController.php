@@ -12,10 +12,12 @@ namespace Cypress\TreeBundle\Controller;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
+use Cypress\TreeBundle\Interfaces\TreeControllerSortableInterface;
+
 /**
  * Controller per NestedSet
  */
-class SonataAdminTreeController extends CRUDController
+class SonataAdminTreeController extends CRUDController implements TreeControllerSortableInterface
 {
     /**
      * Action per la lista
@@ -50,5 +52,18 @@ class SonataAdminTreeController extends CRUDController
     public function getTreeRepository()
     {
         return $this->get('doctrine.orm.entity_manager')->getRepository($this->admin->getClass());
+    }
+
+    /**
+     * Controller action to move a tree node
+     *
+     *
+     * @return \Symfony\Component\HttpFoundation\Response must return a Response object with:
+     *     "ok": everything worked
+     *     "ko": there was a problem
+     */
+    function sortNodeAction()
+    {
+        return new \Symfony\Component\HttpFoundation\Response('ko');
     }
 }
