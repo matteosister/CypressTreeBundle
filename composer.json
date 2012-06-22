@@ -19,20 +19,7 @@
         }
     },
     "require": {
-        "vakata/jstree": "1.0.0"
+        "willdurand/expose-translation-bundle": "dev-master"
     },
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "vakata/jstree",
-                "version": "1.0.0",
-                "dist": {
-                    "url": "https://github.com/vakata/jstree/zipball/v.1.0",
-                    "type": "zip"
-                }
-            }
-        }
-    ],
     "target-dir": "Cypress/TreeBundle"
 }
