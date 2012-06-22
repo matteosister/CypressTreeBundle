@@ -62,7 +62,7 @@ class CypressTreeLoader implements LoaderInterface
             $defaults = array(
                 '_controller' => sprintf('%s:%s', $treeConfiguration->controller, 'sortNode')
             );
-            $route = new Route($pattern, $defaults);
+            $route = new Route($pattern, $defaults, array(), array('expose' => true));
             $routes->add(sprintf('_cypress_tree_%s_ajax_sort', $treeConfiguration->getName()), $route);
         }
 
