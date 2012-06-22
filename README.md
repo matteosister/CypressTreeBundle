@@ -174,7 +174,7 @@ You could use any class, as far as you implement TreeInterface, and define the *
 Now define your trees in the config.yml file. Here is a complete reference:
 
 *app/config/config.yml*
-```yml
+```YAML
 cypress_tree:
     trees:
         my_tree:
@@ -191,7 +191,7 @@ For every tree you define:
 - **label_template**: A twig template that gets a *node* variable with the object of the current tree
 
 *src/MyAwesomeBundle/Resources/views/Menu/item_label.html.twig*
-```twig
+```HTML+Django
 <a href="{{ path('admin_menuitems_edit_mongodb', { 'id': node.id }) }}">{{ node }}</a>
 ```
 
@@ -255,13 +255,13 @@ Now you are ready to display your trees on your twig templates.
 
 - in the javascript section of your template call the function *cypress_tree_javascripts* with the name of the tree that you have defined in you config.yml file
 
-```twig
+```HTML+Django
 {{ cypress_tree_javascripts('admin_menu_item_orm') }}
 ```
 
 and in the body of your page call the cypress_tree() function, with the tree name as first argument, and the root node of your tree as the second.
 
-```twig
+```HTML+Django
 {{ cypress_tree('admin_menu_item_orm', root) }}
 ```
 
