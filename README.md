@@ -269,6 +269,11 @@ And you should see it!
 
 ![CypressTreeBundle screenshot](https://github.com/matteosister/CypressTreeBundle/raw/master/Resources/public/screenshot/tree.png)
 
+Contribution
+------------
+
+If you want to contribute to this bundle (you are my hero) please send the PRs to develop branch!
+
 *remember that if you want to learn recursion, you must first learn recursion*
 
 *The R in RMS stands for RMS*
