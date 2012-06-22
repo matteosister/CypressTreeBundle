@@ -201,24 +201,34 @@ Here is an example with Doctrine orm entities
 
 ```php
 <?php
-public function sortNodeAction($node, $ref, $move)
-{
-    try {
-        $repo = $this->get('doctrine.orm.entity_manager')->getRepository('Cypress\MyAwesomeBundle\Entity\MenuItem');
-        $moved = $repo->findOneBy(array('id' => $node));
-        $reference = $repo->findOneBy(array('id' => $ref));
-        $moveAfter = $move == 1;
-        if (!$moveAfter) {
-            $repo->persistAsPrevSiblingOf($moved, $reference);
-        } else {
-            $repo->persistAsNextSiblingOf($moved, $reference);
+namespace Cypress\MyAwesomeBundle\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Cypress\TreeBundle\Interfaces\TreeControllerSortableInterface;
+
+class AdminController extends Controller implements TreeControllerSortableInterface
+    public function sortNodeAction($node, $ref, $move)
+    {
+        try {
+            $repo = $this->get('doctrine.orm.entity_manager')->getRepository('Cypress\MyAwesomeBundle\Entity\MenuItem');
+            $moved = $repo->findOneBy(array('id' => $node));
+            $reference = $repo->findOneBy(array('id' => $ref));
+            $moveAfter = $move == 1;
+            if (!$moveAfter) {
+                $repo->persistAsPrevSiblingOf($moved, $reference);
+            } else {
+                $repo->persistAsNextSiblingOf($moved, $reference);
+            }
+            $this->getEM()->flush();
+            return new Response('ok');
+        } catch (\Exception $e) {
+            var_dump($e->getMessage());
+            return new Response('ko');
         }
-        $this->getEM()->flush();
-        return new Response('ok');
-    } catch (\Exception $e) {
-        var_dump($e->getMessage());
-        return new Response('ko');
     }
+
+    // other actions...
 }
 ```
 
@@ -238,7 +248,7 @@ Now you are ready to display your trees on your twig templates.
 
 - add the FOSJsRouting js call for sorting the tree
 
-```twig
+```HTML+Django
 <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 ```
