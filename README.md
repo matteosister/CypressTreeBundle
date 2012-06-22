@@ -274,6 +274,9 @@ Contribution
 
 If you want to contribute to this bundle (you are my hero) please send the PRs to develop branch!
 
-*remember that if you want to learn recursion, you must first learn recursion*
+About recursion
+---------------
+
+*Remember that if you want to learn recursion, you must first learn recursion*
 
 *The R in RMS stands for RMS*
