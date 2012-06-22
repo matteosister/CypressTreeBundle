@@ -262,9 +262,7 @@ Now you are ready to display your trees on your twig templates.
 and in the body of your page call the cypress_tree() function, with the tree name as first argument, and the root node of your tree as the second.
 
 ```HTML+Django
-<section class="mytree">
-    {{ cypress_tree('admin_menu_item_orm', root) }}
-</section>
+{{ cypress_tree('admin_menu_item_orm', root) }}
 ```
 
 And you should see it!
