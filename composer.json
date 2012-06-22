@@ -19,7 +19,7 @@
         }
     },
     "require": {
-        "willdurand/expose-translation-bundle": "dev-master"
+        "friendsofsymfony/jsrouting-bundle": "dev-master"
     },
     "target-dir": "Cypress/TreeBundle"
 }
