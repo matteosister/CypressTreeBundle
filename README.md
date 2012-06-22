@@ -223,7 +223,6 @@ class AdminController extends Controller implements TreeControllerSortableInterf
             $this->getEM()->flush();
             return new Response('ok');
         } catch (\Exception $e) {
-            var_dump($e->getMessage());
             return new Response('ko');
         }
     }
