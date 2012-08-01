@@ -34,7 +34,7 @@ class SonataAdminTreeController extends CRUDController
         $roots = $this->getTreeRepository()->getRootNodes();
 
         // set the theme for the current Admin Form
-        $this->get('twig')->getExtension('form')->setTheme($formView, $this->admin->getFilterTheme());
+        $this->get('twig')->getExtension('form')->renderer->setTheme($formView, $this->admin->getFilterTheme());
 
         return $this->render($this->admin->getListTemplate(), array(
             'action'     => 'list',
