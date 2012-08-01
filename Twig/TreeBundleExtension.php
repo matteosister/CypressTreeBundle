@@ -9,7 +9,8 @@
 
 namespace Cypress\TreeBundle\Twig;
 
-use Cypress\TreeBundle\Interfaces\TreeInterface;
+use Cypress\TreeBundle\Interfaces\TreeInterface,
+    Cypress\TreeBundle\Tree\TreeCollection;
 
 /**
  * Twig extension for tree bundle
@@ -22,18 +23,20 @@ class TreeBundleExtension extends \Twig_Extension
     protected $environment;
 
     /**
-     * @var string
+     * @var TreeCollection
      */
-    protected $defaultTheme;
+    protected $treeCollection;
 
     /**
      * Class constructor
      *
-     * @param \Twig_Environment $environment twig environment
+     * @param \Twig_Environment                       $environment    twig environment
+     * @param \Cypress\TreeBundle\Tree\TreeCollection $treeCollection TreeCollection instance
      */
-    public function __construct(\Twig_Environment $environment)
+    public function __construct(\Twig_Environment $environment, TreeCollection $treeCollection)
     {
         $this->environment = $environment;
+        $this->treeCollection = $treeCollection;
     }
 
     /**
@@ -45,8 +48,10 @@ class TreeBundleExtension extends \Twig_Extension
     {
         return array(
             'cypress_tree'             => new \Twig_Function_Method($this, 'tree', array('is_safe' => array('html'))),
+            'cypress_tree_default'     => new \Twig_Function_Method($this, 'treeDefault', array('is_safe' => array('html'))),
             'cypress_tree_javascripts' => new \Twig_Function_Method($this, 'javascripts', array('is_safe' => array('html'))),
-            'cypress_tree_stylesheets' => new \Twig_Function_Method($this, 'stylesheets', array('is_safe' => array('html')))
+            'cypress_tree_javascripts_default' => new \Twig_Function_Method($this, 'javascriptsDefault', array('is_safe' => array('html'))),
+            //'cypress_tree_stylesheets' => new \Twig_Function_Method($this, 'stylesheets', array('is_safe' => array('html')))
         );
     }
 
@@ -63,57 +68,87 @@ class TreeBundleExtension extends \Twig_Extension
     /**
      * renders a tree
      *
+     * @param string                                       $treeName the tree name
+     * @param \Cypress\TreeBundle\Interfaces\TreeInterface $node     a TreeInterface instance
+     *
+     * @return string
+     */
+    public function tree($treeName, $node)
+    {
+        $treeConfiguration = $this->getTreeConfiguration($treeName);
+        $template = $this->environment->loadTemplate('CypressTreeBundle::tree.html.twig');
+        return $template->render(array(
+            'node' => $node,
+            'conf' => $treeConfiguration
+        ));
+    }
+
+    /**
+     * renders a default tree
+     *
      * @param \Cypress\TreeBundle\Interfaces\TreeInterface $node a TreeInterface instance
      *
      * @return string
      */
-    public function tree(TreeInterface $node)
+    public function treeDefault($node)
     {
-        $template = $this->environment->loadTemplate('CypressTreeBundle::tree.html.twig');
-        return $template->render(array(
-            'node' => $node
-        ));
+        return $this->tree('__default', $node);
     }
 
     /**
      * output javascripts for tree
      *
-     * @param string $type  the assets management type (plain or assetic)
-     * @param string $theme the jstree theme name
+     * @param string $treeName the tree name
+     *
+     * @internal param string $theme the jstree theme name
      *
      * @return string
      */
-    public function javascripts($type = 'plain', $theme = null)
+    public function javascripts($treeName)
     {
-        if (null === $theme) {
-            $theme = $this->defaultTheme;
-        }
-        $template = $this->environment->loadTemplate(sprintf('CypressTreeBundle::js/tree_javascripts_%s.html.twig', $type));
+        $treeConfiguration = $this->getTreeConfiguration($treeName);
+        $template = $this->environment->loadTemplate(sprintf('CypressTreeBundle::js/tree_javascripts_%s.html.twig', $treeConfiguration->assets_manager));
         return $template->render(array(
-            'theme' => $theme
+            'conf' => $treeConfiguration
         ));
+    }
+
+    /**
+     * output javascripts for a default tree
+     *
+     * @internal param string $theme the jstree theme name
+     *
+     * @return string
+     */
+    public function javascriptsDefault()
+    {
+        return $this->javascripts('__default');
     }
 
     /**
      * output stylesheets for tree
      *
-     * @param string $type the assets management type (plain or assetic)
+     * @param string $treeName the tree name
      *
      * @return string
      */
-    public function stylesheets($type = 'plain')
+    public function stylesheets($treeName)
     {
-        $template = $this->environment->loadTemplate(sprintf('CypressTreeBundle::css/tree_stylesheets_%s.html.twig', $type));
+        $template = $this->environment->loadTemplate(sprintf(
+            'CypressTreeBundle::css/tree_stylesheets_%s.html.twig', $this->getTreeConfiguration($treeName)->assets_manager
+        ));
         return $template->render(array());
     }
 
     /**
-     * defaultTheme setter
+     * TreeConfiguration getter
      *
-     * @param string $theme the default theme
+     * @param string $name tree name
+     *
+     * @return \Cypress\TreeBundle\Tree\TreeConfiguration
      */
-    public function setDefaultTheme($theme)
+    private function getTreeConfiguration($name)
     {
-        $this->defaultTheme = $theme;
+        return $this->treeCollection->getTree($name);
     }
 }

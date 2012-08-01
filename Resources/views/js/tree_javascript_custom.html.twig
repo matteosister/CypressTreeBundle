@@ -1,0 +1,79 @@
+<script>
+    $(document).ready(function() {
+        $('.cypress_tree').jstree({
+            "themes": {
+                "theme": "{{ conf.theme }}",
+                "url": "/bundles/cypresstree/jstree/themes/{{ conf.theme }}/style.css"
+            },
+            "types": {
+                "valid_children" : [ "root" ],
+                "types" : {
+                    "root": {
+                        "icon": {
+                            "image": "{{ asset(conf.root_icon) }}"
+                        },
+                        "valid_children" : [ "default" ]
+                    },
+                    "default": {
+                        "icon": {
+                            "image": "{{ asset(conf.node_icon) }}"
+                        },
+                        "valid_children": [ "default" ]
+                    }
+                }
+            },
+            "crrm": {
+                "move" : {
+                    "check_move" : function (m) {
+                        var p = this._get_parent(m.o);
+                        if (p.is_root) return false;
+                        if(!p) return false;
+                        p = p == -1 ? this.get_container() : p;
+                        if(p === m.np) return true;
+                        if(p[0] && m.np[0] && p[0] === m.np[0]) return true;
+                        return false;
+                    }
+                }
+            },
+            "dnd": {
+                "drop_target" : false,
+                "drag_target" : false
+            },
+            "plugins" : [
+                "html_data",
+                "themes",
+                "types",
+                {% if conf.isSortable %}
+                "crrm",
+                "dnd"
+                {% endif %}
+            ]
+        });
+        $('.cypress_tree').bind('move_node.jstree', function(e, data) {
+            var move = $.jstree._focused()._get_move();
+            var moveAfter = 'after' == move.p ? '1' : '0';
+            var node = move.o;
+            var nodeId = node.attr('id').replace('node-', '');
+            var ref = move.r;
+            var refId = ref.attr('id').replace('node-', '');
+            var callUrl = Routing.generate('_cypress_tree_{{ conf.name }}_ajax_sort', {
+                node: nodeId,
+                ref: refId,
+                move: moveAfter
+            });
+            $.ajax({
+                context: this,
+                url: callUrl,
+                method: 'GET',
+                success: function(response) {
+                    if (response == 'ko') {
+                        $.jstree.rollback(data.rlbk);
+                    }
+                },
+                error: function() {
+                    $.jstree.rollback(data.rlbk);
+                }
+            });
+        });
+    });
+</script>

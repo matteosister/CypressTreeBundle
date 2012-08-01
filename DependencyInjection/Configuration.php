@@ -22,7 +22,19 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('theme')->defaultValue('default')
+                ->arrayNode('trees')
+                    ->requiresAtLeastOneElement()
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                    ->children()
+                        ->scalarNode('label_template')->defaultValue('CypressTreeBundle::label.html.twig')->isRequired()->end()
+                        ->scalarNode('controller')->defaultValue(null)->isRequired()->end()
+                        ->booleanNode('editable_root')->defaultValue(false)->end()
+                        ->scalarNode('theme')->defaultValue('default')->end()
+                        ->scalarNode('assets_manager')->defaultValue('assetic')->end()
+                        ->scalarNode('root_icon')->defaultValue('bundles/cypresstree/images/database.png')->end()
+                        ->scalarNode('node_icon')->defaultValue('bundles/cypresstree/images/folder.png')->end()
+                    ->end()
             ->end();
 
         return $treeBuilder;

@@ -5,12 +5,19 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+        <service id="cypress_tree.collection" class="Cypress\TreeBundle\Tree\TreeCollection">
+            <argument>%cypress_tree.configs%</argument>
+        </service>
+
+        <service id="cypress_tree.router" class="Cypress\TreeBundle\Routing\CypressTreeLoader">
+            <tag name="routing.loader" />
+            <argument type="service" id="cypress_tree.collection" />
+        </service>
+
         <service id="cypress_tree.twig.extension" class="Cypress\TreeBundle\Twig\TreeBundleExtension">
             <tag name="twig.extension" />
             <argument type="service" id="twig" />
-            <call method="setDefaultTheme">
-                <argument>%cypress_tree.theme%</argument>
-            </call>
+            <argument type="service" id="cypress_tree.collection" />
         </service>
     </services>
 
