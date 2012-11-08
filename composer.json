@@ -4,7 +4,7 @@
     "version": "0.0.1",
     "keywords": ["tree, symfony, bundle"],
     "type": "symfony-bundle",
-    "license": "GPL3",
+    "license": "LGPL-3.0",
     "authors": [
         {
             "name": "Matteo Giachino",
